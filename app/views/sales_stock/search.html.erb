@@ -1,0 +1,74 @@
+	<div class="container-fluid">
+		<%= form_tag sales_stock_search_path, :method => 'get' do %>
+			<div class="row-fluid">
+				<div class="offset3">
+					<div class="span8">
+						<!-- block -->
+						<div class="block">
+							<div class="navbar navbar-inner block-header">
+								<div class="muted pull-left">Product</div>
+								<div class="pull-right"><span class="badge badge-info"></span>
+
+								</div>
+							</div>
+							<div class="block-content collapse in">
+	 							<fieldset>
+
+									<%= select_tag 'merk_id', options_for_select(@brand.collect {|a| [a.Merk, a.IdMerk]}, params[:merk_id]), 
+										:prompt => 'Select Brand' %>
+
+									<%= collection_select(nil, :type_id, @type, :KodeProduk, :Namaroduk, {:include_blank => true, 
+										:prompt => 'Select a Product'}, {:id => 'type_id'})  %>
+
+									<%= collection_select(nil, :article_id, @article, :KodeProduk, :Produk, {:include_blank => true, 
+										:prompt => 'Select an Article'}, {:id => 'article_id'}) %>
+
+									<%= collection_select(nil, :fabric_id, @fabric, :KodeCollection, :NamaKain, {:include_blank => true, 
+										:prompt => 'Select Fabric'}, {:id => 'fabric_id'}) %> 
+
+									<%= select_tag 'size_id', options_for_select([['090', '090'],['100', '100'],['120', '120'],['140', '140'],['160', '160'],
+										['180', '180'], ['200', '200']], params[:size_id]), 
+										:prompt => 'Select Size' %>
+	 							</fieldset>
+								<div class="pull-right"><button type="submit" class="btn btn-primary">Search</button></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('#merk_id').change(function() {
+			$.ajax({
+				url: "<%= update_sales_stock_type_path %>",
+				data: {
+					merk_id : $('#merk_id').val()
+					},
+				dataType: "script"
+			});
+		});
+
+		$('#article_id').change(function() {
+			$.ajax({
+				url: "<%= update_sales_stock_kain_path %>",
+				data: {
+					artikel_id : $('#article_id').val()
+					},
+				dataType: "script"
+			});
+		});
+
+		$('#type_id').change(function() {
+			$.ajax({
+				url: "<%= update_sales_stock_article_path %>",
+				data: {
+					type_id : $('#type_id').val()
+					},
+				dataType: "script"
+			});
+		});
+	});
+</script>

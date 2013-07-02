@@ -1,0 +1,73 @@
+<% unless params[:merk_id].nil? %>
+  <% unless params[:type_id].empty? %>
+		<div class="row-fluid">
+			<div class="offset0">
+				<div class="span5">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+						  <div class="muted pull-left">Search Parameters</div>
+						  <div class="pull-right"><span class="badge badge-info"></span>
+
+						  </div>
+						</div>
+						<div class="block-content collapse in">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Brand</th>
+                    <th>Type</th>
+                    <th>Article</th>
+                    <th>Fabric</th>
+                    <th>Size Width</th>
+                  </tr>
+                </thead>
+                <tbody>
+		              <tr>
+				            <td><%= params[:merk_id].nil? ? "" : Merk.merk_name(params[:merk_id]).first.Merk %></td>
+				            <td><%= params[:type_id].nil? ? "" : Product.product_name(params[:type_id]).first.Namaroduk %></td>
+				            <td><%= params[:article_id].nil? ? "" : Artikel.artikel_name(params[:article_id]).first.Produk %></td>
+				            <td><%= params[:fabric_id].empty? ? "" : Kain.kain_name_from_code(params[:fabric_id]).first.NamaKain %></td>
+				            <td><%= params[:size_id].nil? ? "" : params[:size_id] %></td>
+		              </tr>
+                </tbody>
+              </table>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="block-content collapse in">
+				<table border="1" id="standard_analyze" class="table table-hover" cellspacing="0" cellpadding="3" width="100%">
+				  <thead>
+				    <tr>
+				      <th>Items Code</th>
+							<th>Article</th>
+							<th>Fabric</th>
+						  <th>Stock</th>
+						  <th>Date Accessed</th>
+				    </tr>
+				  </thead>
+				  <tfoot>
+				  </tfoot>
+				  <tbody>
+				    <% @sales_stock.each do |laporan| %>
+				      <tr>
+				        <td><%= laporan.KodeBrg %></td>
+				        <td><%= Artikel.artikel_name(laporan.KodeBrg.slice(2..5)).first.Produk %></td>
+				        <td><%= Kain.kain_name_from_code(laporan.KodeBrg.slice(6..10)).first.NamaKain %></td>
+								<% @qtysalesorder = SalesOrderDetail.exception_so.status_so.items_code(laporan.KodeBrg).first  %>
+								<% @qtyppbdetail =  PpbDetail.exception_ppb.status_so.items_code(laporan.KodeBrg).first %>
+						    <td><%= (@qtysalesorder.nil? ? 0 : @qtysalesorder.QtyOrdering) + (@qtyppbdetail.nil? ? 0 : @qtyppbdetail.QtyPPBKirim) %></td>
+						    <td><%= Time.now %></td>
+				      </tr>
+				    <% end %>
+				  </tbody>
+				</table>
+				<div class="pull-right"><%= link_to 'Back', root_path, {:class => "btn btn-primary"} %></button></div>
+			</body>
+		</body>
+	<% end %>
+<% end %>

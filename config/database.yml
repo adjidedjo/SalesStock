@@ -1,0 +1,10 @@
+development:
+  adapter: sqlserver
+  encoding: utf8
+  reconnect: false
+  database: DBRoyal
+  pool: 5
+  username: ubuntu_admin
+  password: royalabadi
+  host: 192.168.100.6
+  port: 1433

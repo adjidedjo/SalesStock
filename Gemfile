@@ -31,6 +31,8 @@ gem "twitter-bootstrap-rails"
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'capistrano-ext'
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

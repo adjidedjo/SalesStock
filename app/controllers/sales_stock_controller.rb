@@ -24,6 +24,6 @@ class SalesStockController < ApplicationController
 	end
 
 	def update_sales_stock_article
-		@article = Artikel.order("Produk ASC").get_name(params[:type_id]).map{|a| [a.Produk, a.KodeCollection]}.insert(0, "")
+		@article = Artikel.order("Produk ASC").get_name(params[:type_id]).get_artikel_collection(params[:merk_id]).map{|a| [a.Produk, a.KodeCollection]}.insert(0, "")
 	end
 end

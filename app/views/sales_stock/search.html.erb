@@ -65,7 +65,8 @@
 			$.ajax({
 				url: "<%= update_sales_stock_article_path %>",
 				data: {
-					type_id : $('#type_id').val()
+					type_id : $('#type_id').val(),
+					merk_id : $('#merk_id').val()
 					},
 				dataType: "script"
 			});

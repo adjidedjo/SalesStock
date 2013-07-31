@@ -1,5 +1,5 @@
 class Merk < ActiveRecord::Base
-  set_table_name "tbBJmerk"
+  set_table_name "tbBJMerk"
   has_many :user
   has_many :brand_products
   has_many :product, :through => :brand_products

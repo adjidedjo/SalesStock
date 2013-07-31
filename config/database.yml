@@ -2,7 +2,7 @@ development:
   adapter: sqlserver
   encoding: utf8
   reconnect: false
-  database: DBRoyal
+  database: DBMarketing
   pool: 5
   username: ubuntu_admin
   password: royalabadi
